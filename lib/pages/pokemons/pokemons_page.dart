@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:check_install/bloc/pokemon/pokemon_bloc.dart';
 import 'package:check_install/bloc/pokemon/pokemon_event.dart';
 import 'package:check_install/bloc/pokemon/pokemon_state.dart';
@@ -30,17 +32,18 @@ class PokemonsPage extends StatelessWidget {
             }
 
             final bloc = context.read<PokemonBloc>();
+            final isLoadingNextPage = state.status == PokemonStatus.loadingNextPage;
 
             return ListView.builder(
               itemCount: state.pokemons.length,
               itemBuilder: (context, index) {
-                if(index == state.pokemons.length - 5){
+                if(index == state.pokemons.length - 5 && !isLoadingNextPage){
                   bloc.add(LoadNextPage(offset: state.offset + 1));
                 }
 
                 final pokemon = state.pokemons[index];
 
-                if(index == state.pokemons.length - 1 && state.status == PokemonStatus.loadingNextPage) {
+                if(index == state.pokemons.length - 1 && isLoadingNextPage) {
                   return Column(
                     children: [
                       PokemonItem(pokemon: pokemon),
