@@ -16,18 +16,18 @@ class PokemonRepository {
     final body = jsonDecode(data.body);
     final results = body['results'] as List;
 
-    final pokes = [for(final pokemon in results) await getPokemonByUrl(pokemon['url'])];
+    final pokes = [for(final pokemon in results) await getPokemonByUrl(url: pokemon['url'])];
     return pokes;
   }
 
-  Future<Pokemon> getPokemonByUrl(url) async {
+  Future<Pokemon> getPokemonByUrl({url}) async {
     final pokemonData = await http.get(Uri.parse(url));
     final pokemonBody = jsonDecode(pokemonData.body);
 
     return Pokemon.fromJson(pokemonBody);
   }
 
-  Future<Pokemon> getPokemonById(id) async {
-    return await getPokemonByUrl('$_baseUrl/pokemon/$id');
+  Future<Pokemon> getPokemonById({id}) async {
+    return await getPokemonByUrl(url: '$_baseUrl/pokemon/$id');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:check_install/routes/paths.dart';
 import 'package:check_install/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class PokemonApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: routes,
+      initialRoute: login,
     );
   }
 }

@@ -33,14 +33,6 @@ class DetailPage extends StatelessWidget {
             children: pokemon.types
               .map((type) => Text(type)).toList(),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: PasswordInput(
-              labelText: 'Password',
-              prefixIcon: Icon(Icons.password),
-              border: OutlineInputBorder()
-            ),
-          )
         ],
       ),
     );

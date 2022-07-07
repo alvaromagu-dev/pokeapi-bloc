@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 class PasswordInput extends StatefulWidget {
   const PasswordInput({
     Key? key, this.controller, this.prefixIcon, this.labelText,
-    this.border,
+    this.border, this.padding = EdgeInsets.zero, this.validator,
+    this.autovalidateMode
   }) : super(key: key);
 
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final String? labelText;
   final InputBorder? border;
+  final EdgeInsets padding;
+  final FormFieldValidator<String>? validator;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   State<StatefulWidget> createState() {
@@ -27,36 +31,21 @@ class PasswordInputState extends State<PasswordInput> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: isHidden,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) {
-        if(value == null || value.isEmpty){
-          return 'Field can\'t be empty';
-        }
-
-        if(value.length < 5){
-          return 'Min length is 5!';
-        }
-
-        if(!value.codeUnits.any((element) => element.isDigit)){
-          return 'Password must contain 1 digit';
-        }
-
-        if(!value.codeUnits.any((element) => element.isLetter)){
-          return 'Password must contain 1 letter';
-        }
-
-        return null;
-      },
-      decoration: InputDecoration(
-        suffixIcon: IconButton(
-          onPressed: toggleVisibility,
-          icon: Icon(isHidden ? Icons.visibility_off : Icons.visibility),
+    return Padding(
+      padding: widget.padding,
+      child: TextFormField(
+        obscureText: isHidden,
+        autovalidateMode: widget.autovalidateMode,
+        validator: widget.validator,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            onPressed: toggleVisibility,
+            icon: Icon(isHidden ? Icons.visibility_off : Icons.visibility),
+          ),
+          prefixIcon: widget.prefixIcon,
+          labelText: widget.labelText,
+          border: widget.border,
         ),
-        prefixIcon: widget.prefixIcon,
-        labelText: widget.labelText,
-        border: widget.border,
       ),
     );
   }

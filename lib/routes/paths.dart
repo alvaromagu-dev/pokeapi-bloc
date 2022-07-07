@@ -1,2 +1,3 @@
-const home = '/';
-const detail = '/pokemon';
+const pokemons = '/pokemons';
+const detail = '/detail';
+const login = '/login';
