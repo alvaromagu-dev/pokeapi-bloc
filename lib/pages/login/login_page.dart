@@ -1,3 +1,4 @@
+import 'package:check_install/routes/paths.dart';
 import 'package:check_install/utils/int_extensions.dart';
 import 'package:check_install/utils/validations.dart';
 import 'package:check_install/widgets/password_input.dart';
@@ -68,6 +69,8 @@ class LoginPage extends StatelessWidget {
 
                   return;
                 }
+
+                Navigator.of(context).pushNamed(pokemons);
               },
               child: const Text('CREATE ACCOUNT'),
             ),
