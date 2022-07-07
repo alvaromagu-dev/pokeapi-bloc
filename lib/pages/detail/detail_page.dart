@@ -1,5 +1,6 @@
 import 'package:check_install/models/pokemon.dart';
 import 'package:check_install/utils/string_extensions.dart';
+import 'package:check_install/widgets/password_input.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
@@ -31,6 +32,14 @@ class DetailPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: pokemon.types
               .map((type) => Text(type)).toList(),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: PasswordInput(
+              labelText: 'Password',
+              prefixIcon: Icon(Icons.password),
+              border: OutlineInputBorder()
+            ),
           )
         ],
       ),

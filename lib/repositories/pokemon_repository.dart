@@ -1,32 +1,33 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:check_install/bloc/pokemon/constants.dart';
 import 'package:check_install/models/pokemon.dart';
 import 'package:http/http.dart' as http;
 
 class PokemonRepository {
-  final baseUrl = '/api/v2/pokemon?limit=251/';
-  final client = HttpClient();
+  static const _baseUrl = 'https://pokeapi.co/api/v2';
   static const _pokemonsPerPage = 20;
 
   Future<List<Pokemon>> getAll({
-    int offset = initialOffset,
+    int offset = 0,
   }) async {
-    final uri = Uri.parse('https://pokeapi.co/api/v2/pokemon?offset=${_pokemonsPerPage * offset}/');
+    final url = Uri.parse('$_baseUrl/pokemon?offset=${_pokemonsPerPage * offset}/');
 
-    final data = await http.get(uri);
+    final data = await http.get(url);
     final body = jsonDecode(data.body);
-    final result = body['results'] as List;
+    final results = body['results'] as List;
 
-    final pokes = [for(final pokemon in result) await decodePokemon(pokemon)];
+    final pokes = [for(final pokemon in results) await getPokemonByUrl(pokemon['url'])];
     return pokes;
   }
 
-  Future<Pokemon> decodePokemon(pokemon) async {
-    final pokemonUrl = Uri.parse(pokemon['url']);
-    final pokemonData = await http.get(pokemonUrl);
-    final body = jsonDecode(pokemonData.body);
+  Future<Pokemon> getPokemonByUrl(url) async {
+    final pokemonData = await http.get(Uri.parse(url));
+    final pokemonBody = jsonDecode(pokemonData.body);
 
-    return Pokemon.fromJson(body);
+    return Pokemon.fromJson(pokemonBody);
+  }
+
+  Future<Pokemon> getPokemonById(id) async {
+    return await getPokemonByUrl('$_baseUrl/pokemon/$id');
   }
 }
