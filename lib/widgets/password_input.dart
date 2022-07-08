@@ -37,6 +37,7 @@ class PasswordInputState extends State<PasswordInput> {
         obscureText: isHidden,
         autovalidateMode: widget.autovalidateMode,
         validator: widget.validator,
+        controller: widget.controller,
         decoration: InputDecoration(
           suffixIcon: IconButton(
             onPressed: toggleVisibility,

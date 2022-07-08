@@ -1,4 +1,5 @@
 import 'package:check_install/utils/int_extensions.dart';
+import 'package:flutter/material.dart';
 
 abstract class Validation {
   const Validation();
@@ -24,6 +25,20 @@ class PasswordValidation extends Validation {
 
     if(!value.codeUnits.any((element) => element.isLetter)){
       return 'Password must contain 1 letter';
+    }
+
+    return null;
+  }
+}
+
+class RepeatPasswordValidation extends Validation {
+  RepeatPasswordValidation({required this.password});
+  final TextEditingController password;
+
+  @override
+  String? validate(value) {
+    if(value != password.text){
+      return 'Passwords must be equal';
     }
 
     return null;
