@@ -17,7 +17,7 @@ class PokemonApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: routes,
-      initialRoute: login,
+      initialRoute: splash,
     );
   }
 }
