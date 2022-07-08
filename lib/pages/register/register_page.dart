@@ -66,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         return;
                       }
 
-                      Navigator.of(context).pushNamed(pokemons);
+                      Navigator.of(context).pop();
                     },
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 15),
